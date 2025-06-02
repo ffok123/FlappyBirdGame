@@ -1,5 +1,3 @@
-// filepath: FlappyBirdGame/FlappyBirdGame/src/script.js
-
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -31,19 +29,23 @@ let bird = {
     show: function() {
         const birdImg = new Image();
         birdImg.src = 'assets/bird.png';
-        ctx.drawImage(birdImg, this.x, this.y, this.width, this.height);
+        birdImg.onload = () => {
+            ctx.drawImage(birdImg, this.x, this.y, this.width, this.height);
+        };
     }
 };
 
 let pipes = [];
 let score = 0;
 let frame = 0;
-const pipeWidth = 50;
+const pipeWidth = 52;
 const pipeGap = 100;
 
 function setup() {
-    document.addEventListener('keydown', () => {
-        bird.jump();
+    document.addEventListener('keydown', (event) => {
+        if (event.code === 'Space') {
+            bird.jump();
+        }
     });
 
     setInterval(() => {
@@ -82,19 +84,31 @@ function update() {
 }
 
 function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(new Image().src = 'assets/bg.png', 0, 0, canvas.width, canvas.height);
-    bird.show();
+    const bgImg = new Image();
+    bgImg.src = 'assets/bg.png';
+    bgImg.onload = () => {
+        ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
 
-    pipes.forEach(pipe => {
-        ctx.fillStyle = 'green';
-        ctx.fillRect(pipe.x, 0, pipeWidth, pipe.top);
-        ctx.fillRect(pipe.x, canvas.height - pipe.bottom, pipeWidth, pipe.bottom);
-    });
+        bird.show();
 
-    ctx.fillStyle = 'black';
-    ctx.font = '20px Arial';
-    ctx.fillText(`Score: ${score}`, 10, 20);
+        pipes.forEach(pipe => {
+            const pipeTopImg = new Image();
+            pipeTopImg.src = 'assets/pipe_top.png';
+            pipeTopImg.onload = () => {
+                ctx.drawImage(pipeTopImg, pipe.x, 0, pipeWidth, pipe.top);
+            };
+
+            const pipeBottomImg = new Image();
+            pipeBottomImg.src = 'assets/pipe_bottom.png';
+            pipeBottomImg.onload = () => {
+                ctx.drawImage(pipeBottomImg, pipe.x, canvas.height - pipe.bottom, pipeWidth, pipe.bottom);
+            };
+        });
+
+        ctx.fillStyle = 'black';
+        ctx.font = '20px Arial';
+        ctx.fillText(`Score: ${score}`, 10, 20);
+    };
 }
 
 function resetGame() {
