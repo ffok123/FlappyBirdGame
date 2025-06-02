@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background-image: url('../assets/bg.png');
+    background-size: cover;
+}
+
+canvas {
+    display: block;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid #000;
+}
+
+.bird {
+    background-image: url('../assets/bird.png');
+    width: 34px; /* Adjust based on the actual image size */
+    height: 24px; /* Adjust based on the actual image size */
+    position: absolute;
+}
+
+.pipe {
+    background-image: url('../assets/pipe_top.png');
+    width: 52px; /* Adjust based on the actual image size */
+    position: absolute;
+}
+
+.pipe-bottom {
+    background-image: url('../assets/pipe_bottom.png');
+    width: 52px; /* Adjust based on the actual image size */
+    position: absolute;
+}
+
+.restart {
+    background-image: url('../assets/restart.png');
+    width: 50px; /* Adjust based on the actual image size */
+    height: 50px; /* Adjust based on the actual image size */
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+}
+
+.score {
+    font-size: 24px;
+    color: #fff;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
